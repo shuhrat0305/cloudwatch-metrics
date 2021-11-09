@@ -4,9 +4,9 @@ import util.input_validator as iv
 
 
 class Config:
-    def __init__(self):
+    def __init__(self, configPath):
         # Try to load from config file
-        with open('config_files/config.yml') as f:
+        with open(configPath) as f:
             dataMap = yaml.safe_load(f)
             self.__dict__.update(**dataMap)
         # Try to load from env variables
@@ -22,7 +22,7 @@ class Config:
         if environ.get('CUSTOM_LISTENER') is not None:
             self.otel['custom_listener'] = environ.get('CUSTOM_LISTENER')
         if environ.get('REMOTE_TIMEOUT') is not None:
-            self.otel['remote_timeout'] = environ.get('REMOTE_TIMEOUT')
+            self.otel['remote_timeout'] = int(environ.get('REMOTE_TIMEOUT'))
         if environ.get('LOG_LEVEL') is not None:
             self.otel['log_level'] = environ.get('LOG_LEVEL')
         if environ.get('LOGZIO_LOG_LEVEL') is not None:
@@ -34,11 +34,11 @@ class Config:
 
         # Cloudwatch exporter:
         if environ.get('DELAY_SECONDS') is not None:
-            self.cloudwatch['delay_seconds'] = environ.get('DELAY_SECONDS')
+            self.cloudwatch['delay_seconds'] = int(environ.get('DELAY_SECONDS'))
         if environ.get('RANGE_SECONDS') is not None:
-            self.cloudwatch['range_seconds'] = environ.get('RANGE_SECONDS')
+            self.cloudwatch['range_seconds'] = int(environ.get('RANGE_SECONDS'))
         if environ.get('PERIOD_SECONDS') is not None:
-            self.cloudwatch['period_seconds'] = environ.get('PERIOD_SECONDS')
+            self.cloudwatch['period_seconds'] = int(environ.get('PERIOD_SECONDS'))
         if environ.get('SET_TIMESTAMP') is not None:
             self.cloudwatch['set_timestamp'] = environ.get('SET_TIMESTAMP')
         if environ.get('AWS_REGION') is not None:

@@ -6,11 +6,11 @@ import subprocess
 
 
 class Builder:
-    def __init__(self) -> None:
-        self.config = Config()
+    def __init__(self, configPath, otelConfigPath="./config_files/otel-config.yml", cloudwatchConfigPath="./config_files/cloudwatch.yml" ) -> None:
+        self.config = Config(configPath)
         self.logger = self.createLogger()
-        self.otelConfigPath = "./config_files/otel-config.yml"
-        self.cloudwatchConfigPath = "./config_files/cloudwatch.yml"
+        self.otelConfigPath = otelConfigPath
+        self.cloudwatchConfigPath = cloudwatchConfigPath
 
     # Initialize logger
     def createLogger(self) -> logging.Logger:
@@ -95,7 +95,7 @@ class Builder:
 
 
 if __name__ == '__main__':
-    builder = Builder()
+    builder = Builder('config_files/config.yml')
     aws_namespaces, removed_namespaces = builder.config.validate()
     if removed_namespaces:
         builder.logger.warning(f'{removed_namespaces} namespaces are unsupported')

@@ -1,6 +1,6 @@
 import logging
 import os
-from config import Config
+from src.config import Config
 import yaml
 import subprocess
 

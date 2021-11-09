@@ -2,7 +2,7 @@
 This module is for validating user's input
 """
 import re
-from util.data import aws_namespaces, aws_regions
+from testdata.data import aws_namespaces, aws_regions
 
 
 # is_valid_logzio_token checks if a given token is a valid logz.io token

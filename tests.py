@@ -1,10 +1,9 @@
 import os
 import unittest
-import yaml
-from builder import Builder
-from config import Config
-import util.input_validator as iv
-from util.data import aws_namespaces as ns_list
+from src.builder import Builder
+from src.config import Config
+import src.input_validator as iv
+from testdata.data import aws_namespaces as ns_list
 
 
 class TestBuilder(unittest.TestCase):
@@ -59,9 +58,7 @@ class TestBuilder(unittest.TestCase):
             self.fail(f'Unexpected error {e}')
 
 
-
 class TestInput(unittest.TestCase):
-
     def test_is_valid_logzio_token(self):
         # Fail Type
         non_valid_types = [-2, None, 4j, ['string', 'string']]
@@ -76,7 +73,6 @@ class TestInput(unittest.TestCase):
             iv.is_valid_logzio_token('rDRJEidvpIbecUwshyCnGkuUjbymiHev')
         except (TypeError, ValueError) as e:
             self.fail(f'Unexpected error {e}')
-
     def test_is_valid_logzio_region_code(self):
         # Fail Type
         non_valid_types = [-2, None, 4j, ['string', 'string']]

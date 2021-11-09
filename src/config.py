@@ -1,6 +1,6 @@
 from os import environ
 import yaml
-import util.input_validator as iv
+import src.input_validator as iv
 
 
 class Config:
@@ -57,9 +57,9 @@ class Config:
         iv.is_valid_p8s_logzio_name(self.otel['p8s_logzio_name'])
         iv.is_valid_logzio_region_code(self.otel['logzio_region'])
         iv.is_valid_interval(self.otel['scrape_interval'])
-        iv.is_valid_interval(self.otel['delay_seconds'])
-        iv.is_valid_interval(self.otel['range_seconds'])
-        iv.is_valid_interval(self.otel['period_seconds'])
+        iv.is_valid_interval(self.cloudwatch['delay_seconds'])
+        iv.is_valid_interval(self.cloudwatch['range_seconds'])
+        iv.is_valid_interval(self.cloudwatch['period_seconds'])
         if self.cloudwatch['custom_config'] == 'true':
             return [], []
         else:

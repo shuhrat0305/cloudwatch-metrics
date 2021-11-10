@@ -83,8 +83,7 @@ class Builder:
             # Update exporter
             values['exporters']['prometheusremotewrite']['endpoint'] = self.config.getListenerUrl()
             values['exporters']['prometheusremotewrite']['timeout'] = f"{self.config.otel['remote_timeout']}s"
-            values['exporters']['prometheusremotewrite']['headers'][
-                'Authorization'] = f"Bearer {self.config.otel['token']}"
+            values['exporters']['prometheusremotewrite']['headers']['Authorization'] = f"Bearer {self.config.otel['token']}"
             values['exporters']['prometheusremotewrite']['external_labels']['p8s_logzio_name'] = self.config.otel[
                 'p8s_logzio_name']
             # Update service

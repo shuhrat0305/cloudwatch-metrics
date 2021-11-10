@@ -1,5 +1,8 @@
 import os
 import unittest
+
+import yaml
+
 from src.builder import Builder
 from src.config import Config
 import src.input_validator as iv
@@ -7,6 +10,23 @@ from testdata.data import aws_namespaces as ns_list
 
 
 class TestBuilder(unittest.TestCase):
+    def test_getRegionCode(self):
+        test_config = Config('./testdata/test-config.yml')
+        valid_ns = ["au", "ca", "eu", "nl", "uk", "wa"]
+        for ns in valid_ns:
+            self.assertEqual(test_config.getRegionCode(ns), f"-{ns}")
+
+    def test_get_listener_url(self):
+        test_config = Config('./testdata/test-config.yml')
+        self.assertEqual(test_config.getListenerUrl(), 'https://listener.logz.io:8053')
+        valid_ns = ["au", "ca", "eu", "nl", "uk", "wa"]
+        for ns in valid_ns:
+            test_config.otel['logzio_region'] = ns
+            self.assertEqual(test_config.getListenerUrl(), f'https://listener-{ns}.logz.io:8053')
+
+        test_config.otel['custom_listener'] = 'test'
+        self.assertEqual(test_config.getListenerUrl(), test_config.otel['custom_listener'])
+
     def test_load_config(self):
         # otel
         test_config = Config('./testdata/test-config.yml')
@@ -36,16 +56,47 @@ class TestBuilder(unittest.TestCase):
             self.fail(f'Unexpected error {e}')
 
     def test_load_config_env_overwrite(self):
+        # otel
         os.environ['LOGZIO_REGION'] = 'eu'
         os.environ['SCRAPE_INTERVAL'] = '600'
         os.environ['P8S_LOGZIO_NAME'] = 'test'
+        os.environ['TOKEN'] = 'test'
+        os.environ['CUSTOM_LISTENER'] = 'test'
+        os.environ['REMOTE_TIMEOUT'] = '600'
+        os.environ['LOG_LEVEL'] = 'info'
+        os.environ['LOGZIO_LOG_LEVEL'] = 'debug'
+        os.environ['AWS_ACCESS_KEY_ID'] = 'test'
+        os.environ['AWS_SECRET_ACCESS_KEY'] = 'test'
+        # cloudwatch
+        os.environ['DELAY_SECONDS'] = '60'
+        os.environ['RANGE_SECONDS'] = '60'
         os.environ['PERIOD_SECONDS'] = '60'
+        os.environ['SET_TIMESTAMP'] = 'true'
+        os.environ['AWS_REGION'] = 'us-east-2'
+        os.environ['AWS_NAMESPACES'] = 'AWS/RDS,AWS/ELB'
+        os.environ['CUSTOM_CONFIG'] = 'true'
+        os.environ['AWS_ROLE_ARN'] = 'test'
         test_config = Config('./testdata/test-config.yml')
         os.environ.clear()
+        # otel
         self.assertEqual(test_config.otel['logzio_region'], 'eu')
         self.assertEqual(test_config.otel['scrape_interval'], 600)
-        self.assertEqual(test_config.otel['p8s_logzio_name'], 'test')
+        self.assertEqual(test_config.otel['token'], 'test')
+        self.assertEqual(test_config.otel['custom_listener'], 'test')
+        self.assertEqual(test_config.otel['remote_timeout'], 600)
+        self.assertEqual(test_config.otel['log_level'], 'info')
+        self.assertEqual(test_config.otel['logzio_log_level'], 'debug')
+        self.assertEqual(test_config.otel['AWS_ACCESS_KEY_ID'], 'test')
+        self.assertEqual(test_config.otel['AWS_SECRET_ACCESS_KEY'], 'test')
+        # cloudwatch
+        self.assertEqual(test_config.cloudwatch['custom_config'], 'true')
+        self.assertEqual(test_config.cloudwatch['region'], 'us-east-2')
+        self.assertEqual(test_config.cloudwatch['role_arn'], 'test')
+        self.assertEqual(test_config.cloudwatch['aws_namespaces'], 'AWS/RDS,AWS/ELB')
+        self.assertEqual(test_config.cloudwatch['delay_seconds'], 60)
+        self.assertEqual(test_config.cloudwatch['range_seconds'], 60)
         self.assertEqual(test_config.cloudwatch['period_seconds'], 60)
+        self.assertEqual(test_config.cloudwatch['set_timestamp'], 'true')
 
     def test_add_all_cloudwatch_namespaces(self):
         try:
@@ -54,6 +105,27 @@ class TestBuilder(unittest.TestCase):
             builder.updateCloudwatchConfiguration()
             with open(builder.cloudwatchConfigPath, 'r+') as cw:
                 builder.dumpAndCloseFile({'metrics': []}, cw)
+        except Exception as e:
+            self.fail(f'Unexpected error {e}')
+
+    def test_update_otel_collector(self):
+        try:
+            builder = Builder('./testdata/test-config.yml', otelConfigPath='./testdata/otel-test.yml')
+            with open(builder.otelConfigPath, 'r+') as otel:
+                builder.updateOtelConfiguration()
+                values = yaml.safe_load(otel)
+                self.assertEqual(values['receivers']['prometheus_exec']['scrape_interval'], '300s')
+                self.assertEqual(values['exporters']['prometheusremotewrite']['endpoint'],
+                                 'https://listener.logz.io:8053')
+                self.assertEqual(values['exporters']['prometheusremotewrite']['timeout'], '120s')
+                self.assertEqual(values['exporters']['prometheusremotewrite']['external_labels']['p8s_logzio_name'],
+                                 'cloudwatch-metrics')
+                self.assertEqual(values['exporters']['prometheusremotewrite']['headers']['Authorization'], 'Bearer fakeXamgZErKKkMhmzdVZDhuZcpGKXeo')
+                self.assertEqual(values['service']['telemetry']['logs']['level'], 'debug')
+            # reset config
+                with open('./testdata/default-otel.yml', 'r+') as otel_def:
+                    testing_otel_yaml = yaml.safe_load(otel_def)
+                    builder.dumpAndCloseFile(testing_otel_yaml, otel)
         except Exception as e:
             self.fail(f'Unexpected error {e}')
 
@@ -73,6 +145,7 @@ class TestInput(unittest.TestCase):
             iv.is_valid_logzio_token('rDRJEidvpIbecUwshyCnGkuUjbymiHev')
         except (TypeError, ValueError) as e:
             self.fail(f'Unexpected error {e}')
+
     def test_is_valid_logzio_region_code(self):
         # Fail Type
         non_valid_types = [-2, None, 4j, ['string', 'string']]

@@ -4,6 +4,7 @@ otel:
   p8s_logzio_name: "cloudwatch-metrics"
   token: "fakeXamgZErKKkMhmzdVZDhuZcpGKXeo"
   scrape_interval: 300
+  scrape_timeout: 300
   remote_timeout: 120
   log_level: "debug"
   logzio_log_level: "info"

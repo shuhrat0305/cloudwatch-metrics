@@ -3,9 +3,9 @@ import unittest
 
 import yaml
 
-from src.builder import Builder
-from src.config import Config
-import src.input_validator as iv
+from builder import Builder
+from config import Config
+import input_validator as iv
 from testdata.data import aws_namespaces as ns_list
 
 
@@ -102,7 +102,7 @@ class TestBuilder(unittest.TestCase):
         try:
             builder = Builder('./testdata/test-config.yml', cloudwatchConfigPath='./testdata/cloudwatch-test.yml')
             builder.config.cloudwatch['aws_namespaces'] = ns_list
-            builder.updateCloudwatchConfiguration()
+            builder.updateCloudwatchConfiguration('./cw_namespaces/')
             with open(builder.cloudwatchConfigPath, 'r+') as cw:
                 builder.dumpAndCloseFile({'metrics': []}, cw)
         except Exception as e:
@@ -115,6 +115,7 @@ class TestBuilder(unittest.TestCase):
                 builder.updateOtelConfiguration()
                 values = yaml.safe_load(otel)
                 self.assertEqual(values['receivers']['prometheus_exec']['scrape_interval'], '300s')
+                self.assertEqual(values['receivers']['prometheus_exec']['scrape_timeout'], '300s')
                 self.assertEqual(values['exporters']['prometheusremotewrite']['endpoint'],
                                  'https://listener.logz.io:8053')
                 self.assertEqual(values['exporters']['prometheusremotewrite']['timeout'], '120s')

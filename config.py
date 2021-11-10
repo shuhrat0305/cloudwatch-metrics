@@ -1,6 +1,6 @@
 from os import environ
 import yaml
-import src.input_validator as iv
+import input_validator as iv
 
 
 class Config:
@@ -23,6 +23,8 @@ class Config:
             self.otel['custom_listener'] = environ.get('CUSTOM_LISTENER')
         if environ.get('REMOTE_TIMEOUT') is not None:
             self.otel['remote_timeout'] = int(environ.get('REMOTE_TIMEOUT'))
+        if environ.get('SCRAPE_TIMEOUT') is not None:
+            self.otel['scrape_timeout'] = int(environ.get('SCRAPE_TIMEOUT'))
         if environ.get('LOG_LEVEL') is not None:
             self.otel['log_level'] = environ.get('LOG_LEVEL')
         if environ.get('LOGZIO_LOG_LEVEL') is not None:
@@ -60,6 +62,7 @@ class Config:
         iv.is_valid_interval(self.cloudwatch['delay_seconds'])
         iv.is_valid_interval(self.cloudwatch['range_seconds'])
         iv.is_valid_interval(self.cloudwatch['period_seconds'])
+        iv.is_valid_interval(self.otel['scrape_timeout'])
         if self.cloudwatch['custom_config'] == 'true':
             return [], []
         else:

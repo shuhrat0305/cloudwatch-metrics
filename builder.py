@@ -1,6 +1,6 @@
 import logging
 import os
-from src.config import Config
+from config import Config
 import yaml
 import subprocess
 
@@ -36,7 +36,7 @@ class Builder:
         moduleFile.close()
 
     # Takes user input and applies it to cloudwatch exporter
-    def updateCloudwatchConfiguration(self) -> None:
+    def updateCloudwatchConfiguration(self, pathToNameSpaces='./cw_namespaces/') -> None:
         self.logger.info('Adding cloudwatch exporter configuration')
         with open(self.cloudwatchConfigPath, 'r+') as cloudwatchFile:
             values = yaml.safe_load(cloudwatchFile)
@@ -50,7 +50,7 @@ class Builder:
             # Add metrics
             for namespace in self.config.cloudwatch['aws_namespaces']:
                 namespace = namespace.split('AWS/')[-1]
-                with open('./cw_namespaces/{}.yml'.format(namespace), 'r+') as namespaceFile:
+                with open('{}{}.yml'.format(pathToNameSpaces,namespace), 'r+') as namespaceFile:
                     namespaceYaml = yaml.safe_load(namespaceFile)
                     if namespaceYaml not in values['metrics']:
                         values['metrics'].extend(namespaceYaml)
@@ -66,6 +66,7 @@ class Builder:
             values = yaml.safe_load(otelFile)
             # Update receiver
             values['receivers']['prometheus_exec']['scrape_interval'] = f"{self.config.otel['scrape_interval']}s"
+            values['receivers']['prometheus_exec']['scrape_timeout'] = f"{self.config.otel['scrape_timeout']}s"
             values['receivers']['prometheus_exec']['env'] = []
             if self.config.otel['AWS_ACCESS_KEY_ID'] != "" and self.config.otel['AWS_SECRET_ACCESS_KEY'] != "":
                 values['receivers']['prometheus_exec']['env'].append(
@@ -94,12 +95,12 @@ class Builder:
 
 
 if __name__ == '__main__':
-    builder = Builder('config_files/config.yml')
+    builder = Builder('./config_files/config.yml')
     aws_namespaces, removed_namespaces = builder.config.validate()
     if removed_namespaces:
         builder.logger.warning(f'{removed_namespaces} namespaces are unsupported')
     if builder.config.cloudwatch["custom_config"] == "false":
         builder.updateCloudwatchConfiguration()
     builder.updateOtelConfiguration()
-    os.system('chmod +x otelcontribcol_linux_amd64')
-    subprocess.call(['./otelcontribcol_linux_amd64', '--config', 'config_files/otel-config.yml'])
+    os.system('chmod +x ./otelcontribcol_linux_amd64')
+    subprocess.call(['./otelcontribcol_linux_amd64', '--config', './config_files/otel-config.yml'])

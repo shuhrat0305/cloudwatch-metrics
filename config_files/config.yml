@@ -1,20 +1,39 @@
 otel:
+  # your logz.io region
   logzio_region: "us"
+  # custom listener address
   custom_listener: ""
+  # environment tag that will be attached to all samples
   p8s_logzio_name: "cloudwatch-metrics"
+  # your logz.io metrics token
   token: ""
+  # the time to wait between scrape requests
   scrape_interval: 300
+  # the time to wait before throttling remote write post request to logz.io
   remote_timeout: 120
+  # the time to wait before throttling a scrape request to cloudwatch exporter
+  scrape_timeout: 120
+  # opentelemetry log level
   log_level: "debug"
+  # python script log level
   logzio_log_level: "info"
+  # aws credentials
   AWS_ACCESS_KEY_ID: ""
   AWS_SECRET_ACCESS_KEY: ""
 cloudwatch:
+  # set to true if you are loading a custom configuration file for cloudwatch exporter
   custom_config: "false"
+  # your cloudwatch aws region
   region: "us-east-1"
+  # role arn to assume
   role_arn: ""
+  # list of aws cloudwatch namespaces to monitor
   aws_namespaces: ["AWS/Lambda","AWS/EC2"]
+  # The newest data to request. Used to avoid collecting data that has not fully converged
   delay_seconds: 600
+  # how far back to request data for. Useful for cases such as Billing metrics that are only set every few hours
   range_seconds: 600
+  # period to request the metric for. Only the most recent data point is used
   period_seconds: 300
+  # boolean for whether to set the Prometheus metric timestamp as the original Cloudwatch timestamp
   set_timestamp: "false"

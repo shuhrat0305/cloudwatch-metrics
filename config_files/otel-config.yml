@@ -4,7 +4,7 @@ exporters:
   prometheusremotewrite:
     endpoint: https://listener.logz.io:8053
     external_labels:
-      p8s_logzio_name: cw-otel-yot
+      p8s_logzio_name: cloudwatch-metrics
     headers:
       Authorization: 'Bearer '
     timeout: 300s
@@ -16,7 +16,14 @@ receivers:
       config_files/cloudwatch.yml
     port: 9106
     scrape_interval: 60s
+
+extensions:
+  health_check:
+  pprof:
+  zpages:
+
 service:
+  extensions: [health_check,pprof,zpages]
   pipelines:
     metrics:
       exporters:

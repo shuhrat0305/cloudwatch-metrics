@@ -28,11 +28,11 @@ cloudwatch:
   # role arn to assume
   role_arn: ""
   # list of aws cloudwatch namespaces to monitor
-  aws_namespaces: ["AWS/Lambda","AWS/EC2"]
+  aws_namespaces: []
   # The newest data to request. Used to avoid collecting data that has not fully converged
-  delay_seconds: 600
+  delay_seconds: 300
   # how far back to request data for. Useful for cases such as Billing metrics that are only set every few hours
-  range_seconds: 600
+  range_seconds: 300
   # period to request the metric for. Only the most recent data point is used
   period_seconds: 300
   # boolean for whether to set the Prometheus metric timestamp as the original Cloudwatch timestamp

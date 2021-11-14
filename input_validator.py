@@ -41,7 +41,7 @@ def is_valid_logz_io_modules(modules, suported_modules):
 
 def is_valid_interval(interval):
     if interval is None or type(interval) is not int:
-        raise TypeError("Parameter should be a integer")
+        raise TypeError("Parameter should be an integer")
     if (interval % 60) != 0 or interval <= 0:
         raise ValueError('Parameter should be in multiplies of 60')
 

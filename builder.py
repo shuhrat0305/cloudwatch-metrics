@@ -6,7 +6,8 @@ import subprocess
 
 
 class Builder:
-    def __init__(self, configPath, otelConfigPath="./config_files/otel-config.yml", cloudwatchConfigPath="./config_files/cloudwatch.yml" ) -> None:
+    def __init__(self, configPath, otelConfigPath="./config_files/otel-config.yml",
+                 cloudwatchConfigPath="./config_files/cloudwatch.yml") -> None:
         self.config = Config(configPath)
         self.logger = self.createLogger()
         self.otelConfigPath = otelConfigPath
@@ -50,14 +51,14 @@ class Builder:
             # Add metrics
             for namespace in self.config.cloudwatch['aws_namespaces']:
                 namespace = namespace.split('AWS/')[-1]
-                with open('{}{}.yml'.format(pathToNameSpaces,namespace), 'r+') as namespaceFile:
+                with open('{}{}.yml'.format(pathToNameSpaces, namespace), 'r+') as namespaceFile:
                     namespaceYaml = yaml.safe_load(namespaceFile)
                     if namespaceYaml not in values['metrics']:
                         values['metrics'].extend(namespaceYaml)
                 self.logger.info(f'AWS/{namespace} was added to cloudwatch exporter configuration')
             self.dumpAndCloseFile(values, cloudwatchFile)
         self.logger.info('Cloudwatch exporter configuration ready')
-        self.logger.debug(yaml.dump(values))
+        self.logger.debug(f'Cloudwatch exporter configuration:\n{yaml.dump(values)}')
 
     # Takes user input and applies it to open telemetry collector
     def updateOtelConfiguration(self) -> None:
@@ -84,19 +85,20 @@ class Builder:
             # Update exporter
             values['exporters']['prometheusremotewrite']['endpoint'] = self.config.getListenerUrl()
             values['exporters']['prometheusremotewrite']['timeout'] = f"{self.config.otel['remote_timeout']}s"
-            values['exporters']['prometheusremotewrite']['headers']['Authorization'] = f"Bearer {self.config.otel['token']}"
+            values['exporters']['prometheusremotewrite']['headers'][
+                'Authorization'] = f"Bearer {self.config.otel['token']}"
             values['exporters']['prometheusremotewrite']['external_labels']['p8s_logzio_name'] = self.config.otel[
                 'p8s_logzio_name']
             # Update service
             values['service']['telemetry']['logs']['level'] = self.config.otel['log_level']
             self.dumpAndCloseFile(values, otelFile)
         self.logger.info('Opentelemtry collector configuration ready')
-        self.logger.debug(yaml.dump(values))
+        self.logger.debug(f'Opentelemtry collector configuration:\n{yaml.dump(values)}')
 
 
 if __name__ == '__main__':
     builder = Builder('./config_files/config.yml')
-    aws_namespaces, removed_namespaces = builder.config.validate()
+    builder.config.cloudwatch['aws_namespaces'], removed_namespaces = builder.config.validate()
     if removed_namespaces:
         builder.logger.warning(f'{removed_namespaces} namespaces are unsupported')
     if builder.config.cloudwatch["custom_config"] == "false":

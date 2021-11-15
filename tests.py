@@ -108,6 +108,16 @@ class TestBuilder(unittest.TestCase):
         except Exception as e:
             self.fail(f'Unexpected error {e}')
 
+    def test_cloudwatch_config(self):
+        try:
+            builder = Builder('./testdata/test-config.yml', cloudwatchConfigPath='./testdata/cloudwatch-test.yml')
+            builder.config.cloudwatch['aws_namespaces'], remove = iv.is_valid_aws_namespaces('AWS/EC2,AWS/RDS')
+            builder.updateCloudwatchConfiguration('./cw_namespaces/')
+            with open(builder.cloudwatchConfigPath, 'r+') as cw:
+                builder.dumpAndCloseFile({'metrics': []}, cw)
+        except Exception as e:
+            self.fail(f'Unexpected error {e}')
+
     def test_update_otel_collector(self):
         try:
             builder = Builder('./testdata/test-config.yml', otelConfigPath='./testdata/otel-test.yml')
@@ -121,9 +131,10 @@ class TestBuilder(unittest.TestCase):
                 self.assertEqual(values['exporters']['prometheusremotewrite']['timeout'], '120s')
                 self.assertEqual(values['exporters']['prometheusremotewrite']['external_labels']['p8s_logzio_name'],
                                  'cloudwatch-metrics')
-                self.assertEqual(values['exporters']['prometheusremotewrite']['headers']['Authorization'], 'Bearer fakeXamgZErKKkMhmzdVZDhuZcpGKXeo')
+                self.assertEqual(values['exporters']['prometheusremotewrite']['headers']['Authorization'],
+                                 'Bearer fakeXamgZErKKkMhmzdVZDhuZcpGKXeo')
                 self.assertEqual(values['service']['telemetry']['logs']['level'], 'debug')
-            # reset config
+                # reset config
                 with open('./testdata/default-otel.yml', 'r+') as otel_def:
                     testing_otel_yaml = yaml.safe_load(otel_def)
                     builder.dumpAndCloseFile(testing_otel_yaml, otel)

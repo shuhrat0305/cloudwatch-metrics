@@ -1,0 +1,30 @@
+exporters:
+  logging:
+    loglevel: info
+  prometheusremotewrite:
+    endpoint: https://listener.logz.io:8053
+    external_labels:
+      p8s_logzio_name: cw-otel-yot
+    headers:
+      Authorization: 'Bearer '
+    timeout: 300s
+processors: null
+receivers:
+  prometheus_exec:
+    env: []
+    exec: java -jar cloudwatch_exporter-0.11.0-jar-with-dependencies.jar {{port}}
+      config_files/cloudwatch.yml
+    port: 9106
+    scrape_interval: 60s
+service:
+  pipelines:
+    metrics:
+      exporters:
+      - logging
+      - prometheusremotewrite
+      processors: []
+      receivers:
+      - prometheus_exec
+  telemetry:
+    logs:
+      level: info

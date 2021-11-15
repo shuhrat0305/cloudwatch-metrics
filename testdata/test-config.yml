@@ -1,0 +1,21 @@
+otel:
+  logzio_region: "us"
+  custom_listener: ""
+  p8s_logzio_name: "cloudwatch-metrics"
+  token: "fakeXamgZErKKkMhmzdVZDhuZcpGKXeo"
+  scrape_interval: 300
+  scrape_timeout: 300
+  remote_timeout: 120
+  log_level: "debug"
+  logzio_log_level: "info"
+  AWS_ACCESS_KEY_ID: "fakeXamgZErKKkMhmzdVZDhuZcpGKXeo"
+  AWS_SECRET_ACCESS_KEY: "fakeXamgZErKKkMhmzdVZDhuZcpGKXeo"
+cloudwatch:
+  custom_config: "false"
+  region: "us-east-1"
+  role_arn: ""
+  aws_namespaces: ["AWS/Lambda","AWS/EC2"]
+  delay_seconds: 600
+  range_seconds: 600
+  period_seconds: 300
+  set_timestamp: "false"

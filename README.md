@@ -122,7 +122,7 @@ cloudwatch:
 Mount the configuration file to your container:
 ```shell
 docker run --name cloudwach-metrics \
--v <<path_to_config_file>>:config_files/config.yml \
+-v <<path_to_config_file>>:/config_files/config.yml \
 logzio/cloudwach-metrics
 ```
 
@@ -136,7 +136,7 @@ docker run --name cloudwach-metrics \
 -e AWS_ACCESS_KEY_ID=<<AWS_ACCESS_KEY_ID>> \
 -e CUSTOM_CONFIG=true \
 -e AWS_SECRET_ACCESS_KEY=<<AWS_SECRET_ACCESS_KEY>> \
--v <<path_to_cloudwatch_config_file>>:config_files/cloudwach.yml \
+-v <<path_to_cloudwatch_config_file>>:/config_files/cloudwach.yml \
 logzio/cloudwach-metrics
 ```
 ### Publish extension ports

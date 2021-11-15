@@ -103,6 +103,8 @@ if __name__ == '__main__':
         builder.logger.warning(f'{removed_namespaces} namespaces are unsupported')
     if builder.config.cloudwatch["custom_config"] == "false":
         builder.updateCloudwatchConfiguration()
+    else:
+        builder.logger.info('Adding custom cloudwatch exporter configuration')
     builder.updateOtelConfiguration()
     os.system('chmod +x ./otelcontribcol_linux_amd64')
     subprocess.call(['./otelcontribcol_linux_amd64', '--config', './config_files/otel-config.yml'])

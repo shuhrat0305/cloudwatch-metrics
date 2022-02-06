@@ -1,0 +1,71 @@
+- aws_dimensions:
+  - Class
+  - Resource
+  - Service
+  - Type
+  aws_metric_name: CallCount
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - Class
+  - Resource
+  - Service
+  - Type
+  aws_metric_name: ErrorCount
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - Class
+  - Resource
+  - Service
+  - Type
+  aws_metric_name: ThrottleCount
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - LogGroupName
+  - DestinationType
+  - FilterName
+  aws_metric_name: DeliveryErrors
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - LogGroupName
+  - DestinationType
+  - FilterName
+  aws_metric_name: DeliveryThrottling
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - LogGroupName
+  - DestinationType
+  - FilterName
+  aws_metric_name: ForwardedBytes
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - LogGroupName
+  - DestinationType
+  - FilterName
+  aws_metric_name: ForwardedLogEvents
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - LogGroupName
+  aws_metric_name: IncomingBytes
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - LogGroupName
+  aws_metric_name: IncomingLogEvents
+  aws_namespace: AWS/Logs
+  aws_statistics:
+  - Sum

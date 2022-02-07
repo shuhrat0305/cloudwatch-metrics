@@ -1,0 +1,15 @@
+- aws_dimensions: []
+  aws_metric_name: CommandsDeliveryTimedOut
+  aws_namespace: AWS/SSM-RunCommand
+  aws_statistics:
+  - Sum
+- aws_dimensions: []
+  aws_metric_name: CommandsFailed
+  aws_namespace: AWS/SSM-RunCommand
+  aws_statistics:
+  - Sum
+- aws_dimensions: []
+  aws_metric_name: CommandsSucceeded
+  aws_namespace: AWS/SSM-RunCommand
+  aws_statistics:
+  - Sum

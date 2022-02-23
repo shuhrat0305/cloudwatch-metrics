@@ -1,0 +1,52 @@
+- aws_dimensions:
+  - FileSystemId
+  aws_metric_name: DataReadBytes
+  aws_namespace: AWS/FSx
+  aws_statistics:
+  - Sum
+  - SampleCount
+- aws_dimensions:
+  - FileSystemId
+  aws_metric_name: DataWriteBytes
+  aws_namespace: AWS/FSx
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - FileSystemId
+  aws_metric_name: DataReadOperations
+  aws_namespace: AWS/FSx
+  aws_statistics:
+  - Sum
+  - Average
+- aws_dimensions:
+  - FileSystemId
+  aws_metric_name: DataWriteOperations
+  aws_namespace: AWS/FSx
+  aws_statistics:
+  - Sum
+  - Average
+- aws_dimensions:
+  - FileSystemId
+  aws_metric_name: MetadataOperations
+  aws_namespace: AWS/FSx
+  aws_statistics:
+  - Sum
+  - Average
+- aws_dimensions:
+  - FileSystemId
+  aws_metric_name: FreeDataStorageCapacity
+  aws_namespace: AWS/FSx
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - FileSystemId
+  aws_metric_name: LogicalDiskUsage
+  aws_namespace: AWS/FSx
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - FileSystemId
+  aws_metric_name: PhysicalDiskUsage
+  aws_namespace: AWS/FSx
+  aws_statistics:
+  - Sum

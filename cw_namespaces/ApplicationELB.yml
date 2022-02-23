@@ -4,14 +4,14 @@
   - LoadBalancer
   - TargetGroup
   aws_statistics:
-  - Sum
+  - Average
 - aws_namespace: AWS/ApplicationELB
   aws_metric_name: UnHealthyHostCount
   aws_dimensions:
   - LoadBalancer
   - TargetGroup
   aws_statistics:
-  - Sum
+  - Average
 - aws_namespace: AWS/ApplicationELB
   aws_metric_name: RequestCount
   aws_dimensions:

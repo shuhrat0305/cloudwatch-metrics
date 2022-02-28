@@ -1,0 +1,6 @@
+- aws_dimensions:
+  - ServiceName
+  aws_metric_name: EstimatedCharges
+  aws_namespace: AWS/Billing
+  aws_statistics:
+  - Average

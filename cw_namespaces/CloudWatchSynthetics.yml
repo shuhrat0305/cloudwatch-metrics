@@ -1,54 +1,54 @@
 - aws_dimensions:
   - CanaryName
   aws_metric_name: SuccessPercent
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Average
 - aws_dimensions:
   - CanaryName
   aws_metric_name: Duration
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Average
 - aws_dimensions:
   - CanaryName
   aws_metric_name: 2xx
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Sum
 - aws_dimensions:
   - CanaryName
   aws_metric_name: 4xx
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Sum
 - aws_dimensions:
   - CanaryName
   aws_metric_name: 5xx
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Sum
 - aws_dimensions:
   - CanaryName
   aws_metric_name: Failed
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Sum
 - aws_dimensions:
   - CanaryName
   aws_metric_name: Failed requests
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Sum
 - aws_dimensions:
   - CanaryName
   aws_metric_name: VisualMonitoringSuccessPercent
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Average
 - aws_dimensions:
   - CanaryName
   aws_metric_name: VisualMonitoringTotalComparisons
-  aws_namespace: AWS/CloudWatchSynthetics
+  aws_namespace: CloudWatchSynthetics
   aws_statistics:
   - Average

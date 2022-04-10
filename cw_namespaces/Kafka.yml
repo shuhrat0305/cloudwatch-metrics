@@ -1,0 +1,249 @@
+- aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: MemoryUsed
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Cluster Name
+  aws_metric_name: ActiveControllerCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: BurstBalance
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  - Topic
+  aws_metric_name: BytesInPerSec
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  - Topic
+  aws_metric_name: BytesOutPerSec
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: ConnectionCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: CpuIdle
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: CpuSystem
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: CpuUser
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Cluster Name
+  aws_metric_name: GlobalPartitionCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Cluster Name
+  aws_metric_name: GlobalTopicCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Cluster Name
+  aws_metric_name: GlobalPartitionCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: KafkaAppLogsDiskUsed
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: KafkaDataLogsDiskUsed
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Cluster Name
+  aws_metric_name: OfflinePartitionsCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: LeaderCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Consumer Group
+  - Cluster Name
+  - Topic
+  aws_metric_name: SumOffsetLag
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: MemoryFree
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: HeapMemoryAfterGC
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Average
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: MemoryUsed
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: MessagesInPerSec
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: NetworkRxDropped
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: NetworkRxErrors
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: NetworkRxPackets
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: NetworkTxDropped
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: NetworkTxErrors
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: NetworkTxPackets
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Cluster Name
+  aws_metric_name: OfflinePartitionsCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: PartitionCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: ProduceTotalTimeMsMean
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: RequestBytesMean
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: RootDiskUsed
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: UnderMinIsrPartitionCount
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: UnderReplicatedPartitions
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+- aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: ZooKeeperSessionState
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum
+ - aws_dimensions:
+  - Broker ID
+  - Cluster Name
+  aws_metric_name: ZooKeeperRequestLatencyMsMean
+  aws_namespace: AWS/Kafka
+  aws_statistics:
+  - Sum

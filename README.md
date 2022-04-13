@@ -1,5 +1,5 @@
 # cloudwatch-metrics
-Collects cloudwatch metrics and forward them to logz.io, based on opentelemetry collector
+Collects cloudwatch metrics and forward them to logz.io, based on opentelemetry collector.
 We simplify the data export and collection for your metrics: You tell us the desired namespaces and regions you want to send your data from and we fetch the most relevant metrics to display in the Logz.io pre-built Infrastructure Monitoring dashboards.
 
 ### **Note:**

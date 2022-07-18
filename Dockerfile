@@ -9,12 +9,12 @@ COPY testdata testdata
 COPY builder.py builder.py
 COPY config.py config.py
 COPY input_validator.py input_validator.py
-COPY cloudwatch_exporter-0.11.0-jar-with-dependencies.jar cloudwatch_exporter-0.11.0-jar-with-dependencies.jar
+RUN curl -O https://integration-binaries.s3.amazonaws.com/cloudwatch_exporter-0.14.3-jar-with-dependencies.jar
 COPY requirements.txt requirements.txt
 
 # Download opentelemetry binary
-RUN curl -O https://integration-binaries.s3.amazonaws.com/otelcontribcol_linux_amd64
-RUN chmod +x otelcontribcol_linux_amd64
+RUN curl -O https://integration-binaries.s3.amazonaws.com/otelcontribcol_linux_amd64_55
+RUN chmod +x otelcontribcol_linux_amd64_55
 # Install dependencies
 RUN pip install -r requirements.txt --user && \
     rm -f requirements.txt

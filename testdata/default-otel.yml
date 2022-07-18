@@ -1,6 +1,6 @@
 receivers:
   prometheus_exec:
-    exec: java -jar cloudwatch_exporter-0.11.0-jar-with-dependencies.jar {{port}} config_files/cloudwatch.yml
+    exec: java -jar cloudwatch_exporter-0.14.3-jar-with-dependencies.jar {{port}} config_files/cloudwatch.yml
     scrape_interval: 60s
     port: 9106
     env: []

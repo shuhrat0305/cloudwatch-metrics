@@ -108,5 +108,5 @@ if __name__ == '__main__':
         with open(builder.cloudwatchConfigPath, 'r+') as cloudwatchFile:
             builder.logger.debug(f'Cloudwatch exporter configuration:\n{yaml.dump(yaml.safe_load(cloudwatchFile))}')
     builder.updateOtelConfiguration()
-    os.system('chmod +x ./otelcontribcol_linux_amd64')
-    subprocess.call(['./otelcontribcol_linux_amd64', '--config', './config_files/otel-config.yml'])
+    os.system('chmod +x ./otelcontribcol_linux_amd64_55')
+    subprocess.call(['./otelcontribcol_linux_amd64_55', '--config', './config_files/otel-config.yml'])

@@ -22,21 +22,77 @@
 - aws_dimensions:
   - DistributionId
   - Region
+  aws_metric_name: TotalErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DistributionId
+  - Region
   aws_metric_name: 4xxErrorRate
   aws_namespace: AWS/CloudFront
   aws_statistics:
-  - Sum
+  - Average
+- aws_dimensions:
+  - DistributionId
+  - Region
+  aws_metric_name: 401ErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DistributionId
+  - Region
+  aws_metric_name: 403ErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DistributionId
+  - Region
+  aws_metric_name: 404ErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Average
 - aws_dimensions:
   - DistributionId
   - Region
   aws_metric_name: 5xxErrorRate
   aws_namespace: AWS/CloudFront
   aws_statistics:
-  - Sum
+  - Average
 - aws_dimensions:
   - DistributionId
   - Region
-  aws_metric_name: TotalErrorRate
+  aws_metric_name: 502ErrorRate
   aws_namespace: AWS/CloudFront
   aws_statistics:
-  - Sum
+  - Average
+- aws_dimensions:
+  - DistributionId
+  - Region
+  aws_metric_name: 503ErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DistributionId
+  - Region
+  aws_metric_name: 504ErrorRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DistributionId
+  - Region
+  aws_metric_name: OriginLatency
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Average
+- aws_dimensions:
+  - DistributionId
+  - Region
+  aws_metric_name: CacheHitRate
+  aws_namespace: AWS/CloudFront
+  aws_statistics:
+  - Average
